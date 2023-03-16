@@ -1,0 +1,52 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 수정 */
+  align-items: center;
+}
+
+#calendarTable {
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+nav ul ul {
+  display: none;
+}
+
+.sub-menu {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}

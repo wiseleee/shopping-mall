@@ -1,0 +1,31 @@
+#slideshow {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+}
+
+#slideshow img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
+#slideshow img:first-child {
+  opacity: 1;
+}
+
+.purchase-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+}

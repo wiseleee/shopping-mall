@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.board.service.impl.TestBoardMapper">
+
+
+	<select id="selectBoardSampleList" parameterType="searchVO" resultType="egovMap">
+		SELECT *
+		FROM (
+    		SELECT ROWNUM AS RNUM, A.*
+    		FROM (
+        		SELECT
+            	ID, NAME, DESCRIPTION, USE_YN, REG_USER
+        		FROM SAMPLE
+        		WHERE 1=1
+        		<if test="searchKeyword != null and searchKeyword != ''">
+            	<choose>
+                <when test="searchCondition == 0">
+                    AND ID LIKE '%' || #{searchKeyword} || '%'
+                </when>
+                <when test="searchCondition == 1">
+                    AND NAME LIKE '%' || #{searchKeyword} || '%'
+                </when>
+            	</choose>
+        		</if>
+        		ORDER BY ID ASC
+  	   		) A
+    		WHERE ROWNUM &lt;= #{firstIndex} + #{recordCountPerPage}
+			)
+		WHERE RNUM &gt; #{firstIndex}
+
+			
+	</select>
+
+	<select id="selectBoardSampleListTotCnt" parameterType="searchVO" resultType="int">
+
+			SELECT COUNT(*) totcnt
+			FROM SAMPLE
+			WHERE 1=1
+			<if test="searchKeyword != null and searchKeyword != ''">
+		        <choose>
+		            <when test="searchCondition == 0">
+						AND ID LIKE '%' || #{searchKeyword} || '%'
+					</when>
+		            <when test="searchCondition == 1">
+						AND	NAME LIKE '%' || #{searchKeyword} || '%'
+					</when>
+				</choose>
+			</if>
+	</select>
+
+</mapper>

@@ -1,0 +1,14 @@
+.swal2-popup.swal2-black-and-white .swal2-title,
+.swal2-popup.swal2-black-and-white .swal2-content,
+.swal2-popup.swal2-black-and-white .swal2-actions button {
+  color: #fff;
+}
+.swal2-popup.swal2-black-and-white .swal2-confirm {
+  background-color: #000;
+  border-color: #000;
+}
+.swal2-popup.swal2-black-and-white .swal2-cancel {
+  background-color: #fff;
+  border-color: #000;
+  color: #000;
+}

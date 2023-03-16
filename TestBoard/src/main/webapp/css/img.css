@@ -1,0 +1,5 @@
+/* 이미지 크기 고정 */
+img {
+  width: 700px;
+  height: auto;
+}

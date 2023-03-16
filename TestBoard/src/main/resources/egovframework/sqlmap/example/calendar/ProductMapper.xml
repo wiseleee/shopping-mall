@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.calendar.service.impl.ProductMapper">
+
+
+	<select id="selectProductImgList" parameterType="egovMap" resultType="egovMap">
+		select *
+		from productimg
+		where id=#{id}
+		
+			
+	</select>
+	
+		<select id="selectProductListTotCnt" parameterType="searchVO" resultType="int">
+
+			SELECT COUNT(*) totcnt
+			FROM PRODUCTIMG
+			WHERE 1=1
+			<if test="searchKeyword != null and searchKeyword != ''">
+		        <choose>
+		            <when test="searchCondition == 0">
+						AND ID LIKE '%' || #{searchKeyword} || '%'
+					</when>
+		            <when test="searchCondition == 1">
+						AND	NAME LIKE '%' || #{searchKeyword} || '%'
+					</when>
+				</choose>
+			</if>
+	</select>
+	
+	
+	<select id="selectProductList" parameterType="searchVO" resultType="java.util.HashMap">
+		<!-- select * from productimg -->				
+				SELECT *
+		FROM (
+    		SELECT ROWNUM AS RNUM, A.*
+    		FROM (
+        		SELECT
+            	ID,NAME,PRICE,IMAGE_PATH,SUB_ID,DESCRIPTION
+        		FROM PRODUCTIMG
+        		WHERE 1=1
+        		<if test="searchKeyword != null and searchKeyword != ''">
+            	<choose>
+                <when test="searchCondition == 0">
+                    AND ID LIKE '%' || #{searchKeyword} || '%'
+                </when>
+                <when test="searchCondition == 1">
+                    AND NAME LIKE '%' || #{searchKeyword} || '%'
+                </when>
+            	</choose>
+        		</if>
+        		ORDER BY ID ASC
+  	   		) A
+    		WHERE ROWNUM &lt;= #{firstIndex} + #{recordCountPerPage}
+			)
+		WHERE RNUM &gt; #{firstIndex}
+		
+					
+	</select>
+	
+
+	<insert id="addProduct" parameterType="java.util.HashMap">
+	<![CDATA[
+	INSERT INTO SPRODUCT (PID, PNAME, QUANTITY, PSIZE, PRICE, TOTAL_PRICE) 
+	VALUES (#{pid}, #{name}, #{quantity}, #{size}, #{price}, #{totalPrice})
+	]]>
+	</insert>
+
+
+</mapper>
